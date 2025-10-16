@@ -1,0 +1,17 @@
+import { Request, Response } from "express"
+import { signUpService } from "./auth.service";
+
+export const signUpController = async(req:Request, res:Response)=>{
+    try{
+        const {name, email, password ,role} = req.body;
+        const response = await signUpService({name, email, password, role});
+        res.status(200).json({
+            success:true,
+            message:response.message
+        })
+    }
+
+    catch(err:any){
+        res.status(400).json({ message: err.message });
+    }
+}
