@@ -7,10 +7,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
+model User{
+  id        Int       @id @default(autoincrement())
   name      String
-  email     String   @unique
+  email     String    @unique
   password  String
-  createdAt DateTime @default(now())
+  role      String    // ADMIN / EMPLOYER / EMPLOYEE
+  createdAt DateTime  @default(now())
+
+  profile     Profile?
+  organizationsOwner Organization[] @relation("ownerOrga")
+  organizationsMember Organization[] @relation("memberOrga")
+  applications Application[]
+  postedJob Job[]
+}
+
+model Profile{
+  id       Int    @id @default(autoincrement())
+  userId   Int    @unique
+  resume   String?
+
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+model Organization {
+  id        Int     @id @default(autoincrement())
+  name      String
+  ownerId   Int
+
+  owner     User     @relation("ownerOrga", fields: [ownerId], references: [id])
+  members   User[]   @relation("memberOrga")
+}
+
+model Job{
+  id            Int           @id @default(autoincrement())
+  title         String
+  description   String
+  employerId    Int
+  createdAt     DateTime      @default(now())
+
+  employer  User  @relation(fields: [employerId], references: [id])
+  applications  Application[]
+}
+
+model Application {
+  id          Int       @id @default(autoincrement())
+  jobId       Int
+  applicantId Int
+  appliedAt   DateTime  @default(now())
+
+  job        Job   @relation(fields: [jobId], references: [id])
+  applicant  User  @relation(fields: [applicantId], references: [id])
 }
