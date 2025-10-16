@@ -14,6 +14,7 @@ export const getAllJobs = async (req: Request, res: Response) => {
 // create a job
 export const createJob = async (req: Request, res: Response) => {
   const data = req.body;
+  // console.log(data);
   try {
     const job = await JobService.createJob(data);
     res.status(201).json({ success: true, data: job });
