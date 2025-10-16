@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as JobService from "./job.services";
+import { handleValidationError } from "../../middlewares/validationError.middleware";
 
 // get all jobs
 export const getAllJobs = async (req: Request, res: Response) => {
@@ -14,7 +15,6 @@ export const getAllJobs = async (req: Request, res: Response) => {
 // create a job
 export const createJob = async (req: Request, res: Response) => {
   const data = req.body;
-  // console.log(data);
   try {
     const job = await JobService.createJob(data);
     res.status(201).json({ success: true, data: job });

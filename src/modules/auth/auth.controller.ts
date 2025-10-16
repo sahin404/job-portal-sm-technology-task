@@ -5,6 +5,7 @@ import { signInServiceVerify, signUpService, signUpServiceVerify, singInService 
 export const signUpController = async (req: Request, res: Response) => {
   try {
     const { name, email, password, role } = req.body;
+    
     const response = await signUpService({ name, email, password, role });
     res.status(200).json({
       success: true,
