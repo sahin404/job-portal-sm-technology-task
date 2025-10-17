@@ -243,4 +243,4 @@ Add your own credentials or use the following example:
 
 ---
 ## 6. Live Hosting Link
-You can access the live project at: https://job-portal-sm-technology-task-4.onrender.com/
+You can access the live project at: https://job-portal-sm-technology-task-4-q2hz.onrender.com/
